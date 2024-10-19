@@ -15,7 +15,7 @@ class _TwoPlayersScreenState extends State<TwoPlayersScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final gameProvider = Provider.of<GameProvider>(context, listen: false);
+      final gameProvider = Provider.of<TwoPlayersGame>(context, listen: false);
       gameProvider.resetGame();
     });
     super.initState();
@@ -23,7 +23,7 @@ class _TwoPlayersScreenState extends State<TwoPlayersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final gameProvider = Provider.of<GameProvider>(context);
+    final gameProvider = Provider.of<TwoPlayersGame>(context);
 
     return WillPopScope(
       onWillPop: () async {
@@ -111,7 +111,7 @@ class _TwoPlayersScreenState extends State<TwoPlayersScreen> {
               TextButton(
                 onPressed: () {
                   final gameProvider =
-                      Provider.of<GameProvider>(context, listen: false);
+                      Provider.of<TwoPlayersGame>(context, listen: false);
                   gameProvider
                       .disposeTimers(); // Dispose timers or other resources
                   Navigator.of(context).pop(true); // Exit the screen

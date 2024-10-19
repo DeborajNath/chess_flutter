@@ -4,7 +4,7 @@ import 'package:bishop/bishop.dart' as bishop;
 import 'package:square_bishop/square_bishop.dart';
 import 'package:squares/squares.dart';
 
-class GameProvider extends ChangeNotifier {
+class TwoPlayersGame extends ChangeNotifier {
   late bishop.Game game;
   late SquaresState state;
   int currentPlayer = Squares.white;
@@ -14,7 +14,7 @@ class GameProvider extends ChangeNotifier {
   Duration blackTime = const Duration(seconds: 10);
   Timer? timer;
 
-  GameProvider() {
+  TwoPlayersGame() {
     resetGame(false);
     startTimer();
   }

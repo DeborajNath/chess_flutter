@@ -2,8 +2,10 @@ import 'package:chess_flutter/components/index.dart';
 import 'package:chess_flutter/constants/index.dart';
 import 'package:chess_flutter/main_screens/index.dart';
 import 'package:chess_flutter/main_screens/two_players.dart';
+import 'package:chess_flutter/provider/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final GameProvider gameProvider = Provider.of<GameProvider>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -34,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             CustomListTile(
               onTap: () {
+                gameProvider.setComputer(true);
                 RoutingService.goto(
                   context,
                   const GameScreen(),
@@ -48,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const Gap(20),
             CustomListTile(
               onTap: () {
+                gameProvider.setComputer(false);
                 RoutingService.goto(
                   context,
                   const GameTimeScreen(),
