@@ -33,14 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.all(
           20 * Dimensions.heightF(context),
         ),
-        child: Column(
+        child: ListView(
           children: [
             CustomListTile(
               onTap: () {
                 gameProvider.setComputer(true);
                 RoutingService.goto(
                   context,
-                  const GameScreen(),
+                  const GameTimeScreen(),
                 );
               },
               title: "Play against computer",

@@ -4,6 +4,7 @@ import 'package:chess_flutter/components/custom_list_tile.dart';
 import 'package:chess_flutter/constants/index.dart';
 import 'package:chess_flutter/helper/helper_methods.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class GameTimeScreen extends StatefulWidget {
   const GameTimeScreen({super.key});
@@ -16,29 +17,44 @@ class _GameTimeScreenState extends State<GameTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: blue,
-          centerTitle: true,
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          title: Text(
-            "Setup Game Time",
-            style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.w700, color: white),
-          ),
+      appBar: AppBar(
+        backgroundColor: blue,
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
         ),
-        body: ListView.builder(
+        title: Text(
+          "Setup Game Time",
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.w700, color: white),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView.builder(
           itemCount: gameTimes.length,
           itemBuilder: (context, index) {
             final String label = gameTimes[index].split(' ')[0];
             final String gameTime = gameTimes[index].split(' ')[1];
-            return CustomListTile(
-                title: "$label $gameTime",
-                onTap: () {
-                  log("selected game: ${gameTimes[index]}");
-                });
+            return Column(
+              children: [
+                CustomListTile(
+                  title: "$label $gameTime",
+                  onTap: () {
+                    log("selected game: ${gameTimes[index]}");
+                  },
+                  customIcon: Icon(
+                    Icons.gamepad,
+                    size: 30,
+                    color: black,
+                  ),
+                ),
+                const Gap(20),
+              ],
+            );
           },
-        ));
+        ),
+      ),
+    );
   }
 }

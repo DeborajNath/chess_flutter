@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomListTile extends StatefulWidget {
   final String title;
-
+  final String? subtitle;
   final Icon? customIcon;
   final void Function() onTap;
 
@@ -12,6 +12,7 @@ class CustomListTile extends StatefulWidget {
     required this.title,
     this.customIcon,
     required this.onTap,
+    this.subtitle,
   });
 
   @override
@@ -35,13 +36,19 @@ class _CustomListTileState extends State<CustomListTile> {
           ),
         ),
         child: ListTile(
-            contentPadding: const EdgeInsets.all(10),
-            title: Text(
-              widget.title,
-              style: const TextStyle(fontWeight: FontWeight.w600),
+          contentPadding: const EdgeInsets.all(10),
+          title: Text(
+            widget.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
             ),
-            trailing: const Icon(Icons.keyboard_double_arrow_right_rounded),
-            leading: widget.customIcon),
+          ),
+          trailing: const Icon(
+            Icons.keyboard_double_arrow_right_rounded,
+          ),
+          leading: widget.customIcon,
+        ),
       ),
     );
   }
