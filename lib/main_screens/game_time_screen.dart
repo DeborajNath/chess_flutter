@@ -50,7 +50,7 @@ class _GameTimeScreenState extends State<GameTimeScreen> {
                         context,
                         GameStartUpScreen(
                           isCustomedTime: true,
-                          gameTime: gameTime,
+                          gameTime: gameTime ?? "0",
                         ),
                       );
                     } else {
@@ -58,7 +58,7 @@ class _GameTimeScreenState extends State<GameTimeScreen> {
                         context,
                         GameStartUpScreen(
                           isCustomedTime: false,
-                          gameTime: gameTime,
+                          gameTime: gameTime ?? "0",
                         ),
                       );
                     }
