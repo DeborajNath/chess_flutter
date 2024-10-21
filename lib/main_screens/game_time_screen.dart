@@ -36,21 +36,19 @@ class _GameTimeScreenState extends State<GameTimeScreen> {
           itemCount: gameTimes.length,
           itemBuilder: (context, index) {
             final String label = gameTimes[index].split(' ')[0];
-            final String? gameTime = gameTimes[index].contains(' ')
-                ? gameTimes[index].split(' ')[1]
-                : null;
+            final String gameTime = gameTimes[index].split(' ')[1];
             return Column(
               children: [
                 CustomListTile(
                   title: label,
-                  subtitle: gameTime != null ? Text(gameTime) : null,
+                  subtitle: Text(gameTime),
                   onTap: () {
-                    if (label == "custom") {
+                    if (label == "Custom") {
                       RoutingService.goto(
                         context,
                         GameStartUpScreen(
                           isCustomedTime: true,
-                          gameTime: gameTime ?? "0",
+                          gameTime: gameTime,
                         ),
                       );
                     } else {
@@ -58,7 +56,7 @@ class _GameTimeScreenState extends State<GameTimeScreen> {
                         context,
                         GameStartUpScreen(
                           isCustomedTime: false,
-                          gameTime: gameTime ?? "0",
+                          gameTime: gameTime,
                         ),
                       );
                     }

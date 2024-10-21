@@ -1,8 +1,8 @@
 import 'package:chess_flutter/constants/index.dart';
 import 'package:flutter/material.dart';
 
-class PlayerColorRadioButton extends StatelessWidget {
-  const PlayerColorRadioButton({
+class GameLevelRadioButton extends StatelessWidget {
+  const GameLevelRadioButton({
     super.key,
     required this.title,
     required this.value,
@@ -10,16 +10,16 @@ class PlayerColorRadioButton extends StatelessWidget {
     required this.onChanged,
   });
   final String title;
-  final PlayerColor value;
-  final PlayerColor? groupValue;
-  final Function(PlayerColor?)? onChanged;
+  final GameDifficulty value;
+  final GameDifficulty? groupValue;
+  final Function(GameDifficulty?)? onChanged;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 170 * Dimensions.widthP(context),
-      child: RadioListTile<PlayerColor>(
+    final capitalizedTitle = title[0].toUpperCase() + title.substring(1);
+    return Expanded(
+      child: RadioListTile<GameDifficulty>(
         title: Text(
-          title,
+          capitalizedTitle,
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 14 * Dimensions.heightF(context),

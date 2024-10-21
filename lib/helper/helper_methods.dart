@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 final List<String> gameTimes = [
   "Bullet 1+0",
   "Bullet 2+1",
@@ -9,5 +11,13 @@ final List<String> gameTimes = [
   "Rapid 15+10",
   "Classic 30+0",
   "Classic 30+20",
-  "Custom",
+  "Custom (Time)",
 ];
+
+showSnackbar({required BuildContext context, required String content}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(content),
+    ),
+  );
+}

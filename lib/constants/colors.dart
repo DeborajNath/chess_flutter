@@ -5,6 +5,6 @@ Color white = const Color.fromARGB(255, 255, 255, 255);
 Color blue = const Color.fromARGB(255, 0, 113, 252);
 Color darkBlue = const Color.fromARGB(255, 0, 18, 39);
 Color grey = Colors.grey;
-Color lightGrey = const Color.fromARGB(255, 187, 187, 187);
+Color lightGrey = const Color.fromARGB(255, 209, 209, 209);
 Color red = Colors.red;
 Color green = Colors.green;
