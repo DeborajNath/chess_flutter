@@ -1,8 +1,9 @@
 import 'dart:developer';
 
-import 'package:chess_flutter/components/custom_list_tile.dart';
+import 'package:chess_flutter/components/index.dart';
 import 'package:chess_flutter/constants/index.dart';
 import 'package:chess_flutter/helper/helper_methods.dart';
+import 'package:chess_flutter/main_screens/index.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -35,12 +36,32 @@ class _GameTimeScreenState extends State<GameTimeScreen> {
           itemCount: gameTimes.length,
           itemBuilder: (context, index) {
             final String label = gameTimes[index].split(' ')[0];
-            final String gameTime = gameTimes[index].split(' ')[1];
+            final String? gameTime = gameTimes[index].contains(' ')
+                ? gameTimes[index].split(' ')[1]
+                : null;
             return Column(
               children: [
                 CustomListTile(
-                  title: "$label $gameTime",
+                  title: label,
+                  subtitle: gameTime != null ? Text(gameTime) : null,
                   onTap: () {
+                    if (label == "custom") {
+                      RoutingService.goto(
+                        context,
+                        GameStartUpScreen(
+                          isCustomedTime: true,
+                          gameTime: gameTime,
+                        ),
+                      );
+                    } else {
+                      RoutingService.goto(
+                        context,
+                        GameStartUpScreen(
+                          isCustomedTime: false,
+                          gameTime: gameTime,
+                        ),
+                      );
+                    }
                     log("selected game: ${gameTimes[index]}");
                   },
                   customIcon: Icon(

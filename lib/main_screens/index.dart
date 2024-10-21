@@ -4,3 +4,4 @@ export 'splash_screen.dart';
 export 'setting_screen.dart';
 export 'about_screen.dart';
 export 'game_time_screen.dart';
+export 'game_start_up_screen.dart';

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:bishop/bishop.dart' as bishop;
 import 'package:square_bishop/square_bishop.dart';
@@ -10,8 +11,8 @@ class TwoPlayersGame extends ChangeNotifier {
   int currentPlayer = Squares.white;
   bool flipBoard = false;
 
-  Duration whiteTime = const Duration(seconds: 10);
-  Duration blackTime = const Duration(seconds: 10);
+  Duration whiteTime = const Duration(minutes: 10);
+  Duration blackTime = const Duration(minutes: 10);
   Timer? timer;
 
   TwoPlayersGame() {
@@ -20,13 +21,13 @@ class TwoPlayersGame extends ChangeNotifier {
   }
 
   void resetGame([bool ss = true]) {
-    print("Resetting game");
+    log("Resetting game");
     game = bishop.Game(variant: bishop.Variant.standard());
     currentPlayer = Squares.white;
-    print("Current player reset to white");
+    log("Current player reset to white");
     state = game.squaresState(currentPlayer);
-    whiteTime = const Duration(seconds: 10);
-    blackTime = const Duration(seconds: 10);
+    whiteTime = const Duration(minutes: 10);
+    blackTime = const Duration(minutes: 10);
     startTimer();
     if (ss) notifyListeners();
   }

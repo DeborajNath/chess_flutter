@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomListTile extends StatefulWidget {
   final String title;
-  final String? subtitle;
+  final Widget? subtitle;
   final Icon? customIcon;
   final void Function() onTap;
 
@@ -44,6 +44,7 @@ class _CustomListTileState extends State<CustomListTile> {
               fontSize: 20,
             ),
           ),
+          subtitle: widget.subtitle,
           trailing: const Icon(
             Icons.keyboard_double_arrow_right_rounded,
           ),

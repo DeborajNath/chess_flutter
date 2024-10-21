@@ -9,5 +9,5 @@ final List<String> gameTimes = [
   "Rapid 15+10",
   "Classic 30+0",
   "Classic 30+20",
-  "Custom 60+0",
+  "Custom",
 ];
