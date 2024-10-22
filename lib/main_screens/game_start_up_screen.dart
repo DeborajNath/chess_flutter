@@ -49,11 +49,9 @@ class _GameStartUpScreenState extends State<GameStartUpScreen> {
                 PlayerColorRadioButton(
                   title: "Play as ${PlayerColor.white.name}",
                   value: PlayerColor.white,
-                  groupValue: playerColorGroup,
+                  groupValue: gameProvider.playerColor,
                   onChanged: (value) {
-                    setState(() {
-                      playerColorGroup = value!;
-                    });
+                    gameProvider.setPlayerColor(player: 0);
                   },
                 ),
                 widget.isCustomedTime
@@ -148,11 +146,9 @@ class _GameStartUpScreenState extends State<GameStartUpScreen> {
                 PlayerColorRadioButton(
                   title: "Play as ${PlayerColor.black.name}",
                   value: PlayerColor.black,
-                  groupValue: playerColorGroup,
+                  groupValue: gameProvider.playerColor,
                   onChanged: (value) {
-                    setState(() {
-                      playerColorGroup = value!;
-                    });
+                    gameProvider.setPlayerColor(player: 1);
                   },
                 ),
                 widget.isCustomedTime
@@ -258,10 +254,10 @@ class _GameStartUpScreenState extends State<GameStartUpScreen> {
                           GameLevelRadioButton(
                             title: GameDifficulty.easy.name,
                             value: GameDifficulty.easy,
-                            groupValue: gameDifficultyGroup,
+                            groupValue: gameProvider.gameDifficulty,
                             onChanged: (value) {
                               setState(() {
-                                gameDifficultyGroup = value!;
+                                gameProvider.setGameDifficulty(level: 1);
                               });
                             },
                           ),
@@ -269,10 +265,10 @@ class _GameStartUpScreenState extends State<GameStartUpScreen> {
                           GameLevelRadioButton(
                             title: GameDifficulty.medium.name,
                             value: GameDifficulty.medium,
-                            groupValue: gameDifficultyGroup,
+                            groupValue: gameProvider.gameDifficulty,
                             onChanged: (value) {
                               setState(() {
-                                gameDifficultyGroup = value!;
+                                gameProvider.setGameDifficulty(level: 2);
                               });
                             },
                           ),
@@ -280,10 +276,10 @@ class _GameStartUpScreenState extends State<GameStartUpScreen> {
                           GameLevelRadioButton(
                             title: GameDifficulty.hard.name,
                             value: GameDifficulty.hard,
-                            groupValue: gameDifficultyGroup,
+                            groupValue: gameProvider.gameDifficulty,
                             onChanged: (value) {
                               setState(() {
-                                gameDifficultyGroup = value!;
+                                gameProvider.setGameDifficulty(level: 3);
                               });
                             },
                           ),
@@ -307,16 +303,54 @@ class _GameStartUpScreenState extends State<GameStartUpScreen> {
 
   void playGame({
     required GameProvider gameProvider,
-  }) {
+  }) async {
     if (widget.isCustomedTime) {
       if (whiteTimeInMinutes <= 0 || blackTimeInMinutes <= 0) {
         showSnackbar(context: context, content: "Time Cannot be zero");
         return;
       }
+      gameProvider.setLoading(true);
+      await gameProvider
+          .setGameTime(
+        newSavedWhitesTime: whiteTimeInMinutes.toString(),
+        newSavedBlacksTime: blackTimeInMinutes.toString(),
+      )
+          .whenComplete(() {
+        if (gameProvider.vsComputer) {
+          gameProvider.setLoading(false);
+          RoutingService.goto(
+            context,
+            const GameScreen(),
+          );
+        } else {
+          //search for player
+        }
+      });
+    } else {
+      final String incrementalTime = widget.gameTime!.split('+')[1];
+
+      final String gameTime = widget.gameTime!.split('+')[0];
+
+      if (incrementalTime != "0") {
+        gameProvider.setIncrementalValue(value: int.parse(incrementalTime));
+      }
+      gameProvider.setLoading(true);
+      await gameProvider
+          .setGameTime(
+        newSavedWhitesTime: gameTime,
+        newSavedBlacksTime: gameTime,
+      )
+          .whenComplete(() {
+        if (gameProvider.vsComputer) {
+          gameProvider.setLoading(false);
+          RoutingService.goto(
+            context,
+            const GameScreen(),
+          );
+        } else {
+          //search for player
+        }
+      });
     }
-    RoutingService.goto(
-      context,
-      const GameScreen(),
-    );
   }
 }
